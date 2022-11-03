@@ -1,0 +1,15 @@
+{
+  "name": "@hm/spm",
+  "version": "1.0.0",
+  "description": "Shared Package Manager - Manage your monorepo dependencies",
+  "license": "MIT",
+  "author": "Ducky Momo",
+  "bin": "src/index.js",
+  "dependencies": {
+    "commander": "^9.4.1",
+    "glob": "^8.0.3",
+    "glob-promise": "^5.0.0",
+    "yaml": "^2.1.3",
+    "yargs": "^17.6.0"
+  }
+}
