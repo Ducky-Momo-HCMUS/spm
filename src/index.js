@@ -27,11 +27,11 @@ const main = async () => {
 
   argv.ignore = argv.ignore ?? [];
 
-  const spmrc = getSpmrcJson(argv.cwd);
+  const spmrc = await getSpmConfig(argv.cwd);
   if (spmrc && spmrc.ignore) {
     const ignore = spmrc.ignore;
     if (typeof ignore === "string" || Array.isArray(ignore)) {
-      argv.ignore.concat(ignore);
+      argv.ignore = argv.ignore.concat(ignore);
     }
   }
 
@@ -48,13 +48,15 @@ const main = async () => {
 
   log(`Execute "${pm} ${argv.command}" in:`);
   workspaces.forEach((workspace) => log(`- ${workspace}`));
-  log("Ignore:");
-  await Promise.all(
-    argv.ignore.map(async (workspaceOrGlob) => {
-      const workspaces = await resolveGlob(argv.cwd, workspaceOrGlob);
-      workspaces.forEach((workspace) => log(`- ${workspace}`));
-    })
-  );
+  if (argv.ignore.length != 0) {
+    log("Ignore:");
+    await Promise.all(
+      argv.ignore.map(async (workspaceOrGlob) => {
+        const workspaces = await resolveGlob(argv.cwd, workspaceOrGlob);
+        workspaces.forEach((workspace) => log(`- ${workspace}`));
+      })
+    );
+  }
   log();
 
   if (argv.w) {

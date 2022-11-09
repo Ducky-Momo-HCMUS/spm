@@ -73,8 +73,8 @@ const getWorkspaces = async (cwd, packageManager, ignore = []) => {
   return workspaces.flatMap((v) => v).map((workspace) => dirname(workspace));
 };
 
-const getSpmrcJson = async (cwd) => {
-  const path = resolve(cwd, "spmrc.json");
+const getSpmConfig = async (cwd) => {
+  const path = resolve(cwd, "spmconfig.json");
   return existsSync(path) ? JSON.parse(await fs.readFile(path, "utf-8")) : null;
 };
 
@@ -83,5 +83,5 @@ module.exports = {
   resolveGlob,
   getPackageManger,
   getWorkspaces,
-  getSpmrcJson,
+  getSpmConfig,
 };
