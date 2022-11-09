@@ -6,7 +6,7 @@ const {
   getPackageManger,
   resolveGlob,
   buildCommand,
-  getSpmrcJson,
+  getSpmConfig,
 } = require("./util");
 
 const log = argv.silent ? () => {} : console.log;
@@ -27,9 +27,9 @@ const main = async () => {
 
   argv.ignore = argv.ignore ?? [];
 
-  const spmrc = await getSpmConfig(argv.cwd);
-  if (spmrc && spmrc.ignore) {
-    const ignore = spmrc.ignore;
+  const spmConfig = await getSpmConfig(argv.cwd);
+  if (spmConfig && spmConfig.ignore) {
+    const ignore = spmConfig.ignore;
     if (typeof ignore === "string" || Array.isArray(ignore)) {
       argv.ignore = argv.ignore.concat(ignore);
     }
